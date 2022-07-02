@@ -1,5 +1,4 @@
-resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8',
-              'e8_t5_p4_s9', 'e2_t2_p2_s1', 'e10_t10_p8_s9']
+resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8', 'e8_t5_p4_s9', 'e2_t2_p2_s1', 'e10_t10_p8_s9', 'e8_t5_p6_s9']
 
 
 def buscar_notas(resultados):
@@ -42,6 +41,7 @@ def buscar_notas(resultados):
     else:    
         for i in candidatos_aptos:
             print(f'O candidato {i} atende aos critérios escolhidos.')
-            return 
+    
+    return 
 
 (buscar_notas(resultados))

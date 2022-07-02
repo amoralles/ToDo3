@@ -1,4 +1,6 @@
-resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8', 'e8_t5_p4_s9', 'e2_t2_p2_s1', 'e10_t10_p8_s9']
+resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8',
+              'e8_t5_p4_s9', 'e2_t2_p2_s1', 'e10_t10_p8_s9']
+
 
 def buscar_notas(resultados):
     notas_min = []
@@ -11,25 +13,35 @@ def buscar_notas(resultados):
     nota_s_min = (input("Nota mínima na avaliação soft skills: "))
     notas_min.append(nota_s_min)
 
-    print(notas_min)
-
-    lista_notas = []
+    notas_candidatos = []
 
     for i in resultados:
-        notas_ind = []
-        e = i[i.index('e') + 1 : i.index("_")]
-        notas_ind.append(e)
-        t = i[i.index('t') + 1 : i.find("_", i.index('t'))]
-        notas_ind.append(t)
-        p = i[i.index('p') + 1 : i.find("_", i.index('p'))]
-        notas_ind.append(p)
-        s = i[i.index('s') + 1 : ]
-        notas_ind.append(s)
+        notas_individuais = []
+        e = i[i.index('e') + 1: i.index("_")]
+        notas_individuais.append(e)
+        t = i[i.index('t') + 1: i.find("_", i.index('t'))]
+        notas_individuais.append(t)
+        p = i[i.index('p') + 1: i.find("_", i.index('p'))]
+        notas_individuais.append(p)
+        s = i[i.index('s') + 1:]
+        notas_individuais.append(s)
 
-        lista_notas.append(notas_ind)     
+        notas_candidatos.append(notas_individuais)
 
-      
+        candidatos_aptos = []
 
-    print(lista_notas)
+    for notas_i in range(len(notas_candidatos)):
+        notas = notas_candidatos[notas_i]
 
-print(buscar_notas(resultados))
+        if (int(notas[0]) >= int(notas_min[0])) and (int(notas[1]) >= int(notas_min[1])) and (int(notas[2]) >= int(notas_min[2])) and (int(notas[3]) >= int(notas_min[3])):
+            candidato = (notas_candidatos.index(notas_candidatos[notas_i]) + 1)
+            candidatos_aptos.append(candidato)
+
+    if candidatos_aptos == []:
+        return print(f'Nenhum candidato atende aos critérios escolhidos')
+    else:    
+        for i in candidatos_aptos:
+            print(f'O candidato {i} atende aos critérios escolhidos.')
+            return 
+
+(buscar_notas(resultados))

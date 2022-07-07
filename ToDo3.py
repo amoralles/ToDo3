@@ -4,21 +4,23 @@ resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8', 'e8_t5_p4_s9',
 
 def receberNotasMinimas():
     notas_min = []
-    nota_e_min = (input("Nota mínima na entrevista: "))
-    notas_min.append(nota_e_min)
-    nota_t_min = (input("Nota mínima no teste teórico: "))
-    notas_min.append(nota_t_min)
-    nota_p_min = (input("Nota mínima no teste prático: "))
-    notas_min.append(nota_p_min)
-    nota_s_min = (input("Nota mínima na avaliação soft skills: "))
-    notas_min.append(nota_s_min)
-    
-    # if (nota_e_min != int(nota_e_min)) or (nota_t_min != int(nota_t_min)) or (nota_p_min != int(nota_p_min)) or (nota_s_min != int(nota_s_min)):
-    #     print(f'Insira apenas números inteiros válidos.')
-    #     return receberNotasMinimas()
-    # else:
+    while True:
+        try:
+            nota_e_min = int(input("Nota mínima na entrevista: "))
+            notas_min.append(nota_e_min)
+            nota_t_min = int(input("Nota mínima no teste teórico: "))
+            notas_min.append(nota_t_min)
+            nota_p_min = int(input("Nota mínima no teste prático: "))
+            notas_min.append(nota_p_min)
+            nota_s_min = int(input("Nota mínima na avaliação soft skills: "))
+            notas_min.append(nota_s_min)
+            if (nota_e_min > 10) or (nota_t_min > 10) or (nota_p_min > 10) or (nota_s_min > 10):
+                    raise ValueError('Insira apenas números entre 0 e 10. ')
+        except ValueError as e:
+            print("Insira apenas números inteiros válidos. Valor inválido:", e)
+        else:
+            break
     return notas_min
-
 
 def atualizarListaDeNotas(resultados):
     entrada = input(
@@ -27,8 +29,22 @@ def atualizarListaDeNotas(resultados):
     if (entrada.upper() == 'NÃO') or (entrada.upper() == 'NAO'):
         return resultados
     if entrada.upper() == 'SIM':
-        entrada1 = input('Insira a nota no formato "eW_tX_pY_sZ"')
-        resultados.append(entrada1)
+        while True:
+            try:
+                entrada1 = input('Insira a nota no formato "eW_tX_pY_sZ"')
+                i = entrada1
+                e = i[i.index('e') + 1: i.index("_")]
+                t = i[i.index('t') + 1: i.find("_", i.index('t'))]
+                p = i[i.index('p') + 1: i.find("_", i.index('p'))]
+                s = i[i.index('s') + 1:]
+                if (int(e) > 10) or (int(t)> 10) or (int(p) > 10) or (int(s) > 10):
+                    raise ValueError('Insira apenas números entre 0 e 10. ')
+            except ValueError as e:
+                print("Insira apenas números inteiros válidos. Valor inválido:", e)
+            else:
+                break
+            
+        resultados.append(entrada1)        
         return resultados
     else:
         print(f'Digite uma opção válida: SIM ou NÃO')
@@ -59,8 +75,18 @@ def candidatosAptos(notas_candidatos, notas_min):
         notas = notas_candidatos[notas_i]
 
         if (int(notas[0]) >= int(notas_min[0])) and (int(notas[1]) >= int(notas_min[1])) and (int(notas[2]) >= int(notas_min[2])) and (int(notas[3]) >= int(notas_min[3])):
-            candidato = (notas_candidatos.index(notas_candidatos[notas_i]) + 1)
-            candidatos_aptos.append(candidato)
+            candidatos = [i+1 for i in range(len(notas_candidatos)) if notas_candidatos[i] == notas]
+            if len(candidatos) > 1:
+                    for i in candidatos:
+                        candidato = i
+                        if candidato in candidatos_aptos:
+                            pass
+                        else:
+                            candidatos_aptos.append(candidato)
+                        
+            else: 
+                candidato = candidatos[0]
+                candidatos_aptos.append(candidato)
 
     if candidatos_aptos == []:
         return print(f'Nenhum candidato atende aos critérios escolhidos')

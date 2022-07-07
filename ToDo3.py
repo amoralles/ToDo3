@@ -1,6 +1,4 @@
-resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8', 'e8_t5_p4_s9',
-              'e2_t2_p2_s1', 'e10_t10_p8_s9', 'e8_t5_p6_s9']
-
+resultados = ['e5_t10_p8_s8', 'e10_t7_p7_s8', 'e8_t5_p4_s9', 'e2_t2_p2_s1', 'e10_t10_p8_s9', 'e8_t5_p6_s9']
 
 def receberNotasMinimas():
     notas_min = []
@@ -23,6 +21,8 @@ def receberNotasMinimas():
     return notas_min
 
 def atualizarListaDeNotas(resultados):
+    print(f'Há {len(resultados)} notas no banco de dados atual.')
+    contador = len(resultados)
     entrada = input(
         'Deseja adicionar mais algum candidato ao banco de dados? Digite "SIM" ou "NÃO" ')
 
@@ -31,7 +31,7 @@ def atualizarListaDeNotas(resultados):
     if entrada.upper() == 'SIM':
         while True:
             try:
-                entrada1 = input('Insira a nota no formato "eW_tX_pY_sZ"')
+                entrada1 = input(f'Insira a nota no formato "eW_tX_pY_sZ" para o candidato {contador +1}: ')
                 i = entrada1
                 e = i[i.index('e') + 1: i.index("_")]
                 t = i[i.index('t') + 1: i.find("_", i.index('t'))]
@@ -44,12 +44,27 @@ def atualizarListaDeNotas(resultados):
             else:
                 break
             
-        resultados.append(entrada1)        
+        resultados.append(entrada1)
+        atualizarListaDeNotas(resultados)        
         return resultados
     else:
         print(f'Digite uma opção válida: SIM ou NÃO')
     return atualizarListaDeNotas(resultados)
 
+def visualizarBanco(resultados):
+    print(f'Há {len(resultados)} notas no banco de dados atual.')
+    entrada = input(f'Deseja ver as notas de todos os candidatos inscritos? Digite SIM ou NÃO: ')
+    if (entrada.upper() == 'NÃO') or (entrada.upper() == 'NAO'):
+        return 
+    if entrada.upper() == 'SIM':
+        contador = 1 
+        for i in resultados:
+            print(f'Candidato {contador}: {i}')
+            contador = contador +1 
+        return
+    else:
+        print(f'Digite uma opção válida: SIM ou NÃO')
+    return 
 
 def listarCandidatos(resultados):
     notas_candidatos = []
@@ -66,7 +81,6 @@ def listarCandidatos(resultados):
 
         notas_candidatos.append(notas_individuais)
     return notas_candidatos
-
 
 def candidatosAptos(notas_candidatos, notas_min):
     candidatos_aptos = []
@@ -95,11 +109,13 @@ def candidatosAptos(notas_candidatos, notas_min):
             print(f'O candidato {i} atende aos critérios escolhidos.')
     return
 
-
 # Iniciando o programa:
 
 # Atualizando, ou não, a lista que contém as notas dos candidatos entrevistados:
 resultados = atualizarListaDeNotas(resultados)
+
+# Lista as notas dos candidatos no banco de dados atual:
+visualizarBanco(resultados)
 
 # Transforma o modelo inicial de armazenamento de notas em apenas números:
 notas_candidatos = listarCandidatos(resultados)

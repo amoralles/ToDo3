@@ -1,8 +1,8 @@
 ![banner](https://doity.com.br/blog/wp-content/uploads/2019/03/avalia%C3%A7%C3%A3o-de-trabalhos-cient%C3%ADficos.png)
 
-#Deu Match!
+# Deu Match!
 
-###ToDo3 do Curso de Data Analyst da RESILIA
+### ToDo3 do Curso de Data Analyst da RESILIA
 
 Uma startup está desenvolvendo um aplicativo que verifica a compatibilidade de um candidato com uma vaga de acordo com seu resultado nas etapas do processo seletivo. Para isso foi criado um teste que devolve uma string no seguinte formato: eX_tX_pX_sX (sendo que cada X é substituído pela avaliação da pessoa em uma das etapas do processo - entrevista, teste teórico, teste prático e avaliação de soft skills).
 
